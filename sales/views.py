@@ -4,22 +4,26 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import Sale
 from .forms import SearchSaleForm
+from reports.forms import ReportForm
 
 from .utils import get_customer_name_by_id, get_saleman_name_by_id, get_chart
 
 # Create your views here.
 
 def home_view(request):
-    form=SearchSaleForm(request.POST or None)
+    search_form=SearchSaleForm(request.POST or None)
+    report_form=ReportForm
     sales_df=None
     positions_df=None
     merge_df=None
     groupby_df=None
     chart=None
+    no_data=None
     if request.method =="POST":
         date_from=request.POST.get('date_from')
         date_to=request.POST.get('date_to')
         chart_type=request.POST.get('chart_type')
+        result_by=request.POST.get('result_by')
         sale_queryset=Sale.objects.filter(created__date__lte=date_to, created__date__gte=date_from)
         # print(queryset.values())
         # print(queryset.values_list())
@@ -45,24 +49,28 @@ def home_view(request):
             positions_df = pd.DataFrame(positions_data)
             merge_df=pd.merge(sales_df, positions_df, on="sale_id")
             groupby_df=merge_df.groupby('transaction_id', as_index=False)['price'].agg("sum")
-            chart=get_chart(chart_type, groupby_df, labels=groupby_df["transaction_id"].values)
+            #chart=get_chart(chart_type, groupby_df, labels=groupby_df["transaction_id"].values)
+            chart=get_chart(chart_type, sales_df, result_by)
             sales_df=sales_df.to_html()
             positions_df=positions_df.to_html()
             merge_df=merge_df.to_html()
             groupby_df=groupby_df.to_html()
 
         else:
-            print("no data")
+            no_data="No data is avaiable in this date range"
         # pf2= pd.DataFrame(queryset.values_list())
         # print(pf2)
 
     context={
-        "form":form,
+        "search_form":search_form,
         "sales_df": sales_df,
         "positions_df": positions_df,
         "merge_df": merge_df,
         "groupby_df": groupby_df,
         "chart": chart,
+        "report_form": report_form,
+        "no_data": no_data,
+
     }
     return render(request,'sales/home.html',context)
 
