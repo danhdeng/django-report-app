@@ -26,8 +26,8 @@ reportbtn.addEventListener('click',()=>{
         e.preventDefault()
         const formData=new FormData()
         formData.append('csrfmiddlewaretoken', csrftoken)
-        formData.append('name', reportName)
-        formData.append('remarks', reportRemarks)
+        formData.append('name', reportName.value)
+        formData.append('remarks', reportRemarks.value)
         formData.append('image', img.src)
 
         $.ajax({

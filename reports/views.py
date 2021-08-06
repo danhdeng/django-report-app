@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from profiles.models import Profile
 from .forms import ReportForm
+from .utils import get_report_image
 
 # Create your views here.
 @login_required
@@ -16,7 +17,11 @@ def created_report_view(request):
 
         # author=Profile.objects.get(user=request.user)
         if form.is_valid:
-            form.save()
+            instance=form.save(commit=False)
+            image=request.POST.get('image')
+            img =get_report_image(image)
+            instance.image=img
+            instance.auth=Profile.objects.get(user=request.user)
         return JsonResponse({"message":"send"})
     return JsonResponse({"message":"not ajax call"})
 
