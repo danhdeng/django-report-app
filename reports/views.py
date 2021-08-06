@@ -22,6 +22,7 @@ def created_report_view(request):
             img =get_report_image(image)
             instance.image=img
             instance.auth=Profile.objects.get(user=request.user)
+            instance.save()
         return JsonResponse({"message":"send"})
     return JsonResponse({"message":"not ajax call"})
 
