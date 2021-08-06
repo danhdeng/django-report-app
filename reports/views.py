@@ -14,7 +14,8 @@ def created_report_view(request):
         # remarks=request.POST.get('remarks')
         # image=request.POST.get('image')
         # name=request.POST.get('name')
-
+        # author=Profile.objects.all().first()
+        # Report.objects.create(name=name, image=img, remarks=remarks, auth=author)
         # author=Profile.objects.get(user=request.user)
         if form.is_valid:
             instance=form.save(commit=False)
