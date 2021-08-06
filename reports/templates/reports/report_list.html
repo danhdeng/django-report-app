@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block title%}
+Report List
+{% endblock %}
+
+{%block content %}
+    <p>Report List View</p>
+   
+    <div class="container">
+        <div class="row">
+            {% for report in report_list %}
+            <div class="col-sm-4">
+                <div class="card mb-3" style="width: 22rem;">
+                    <img class="card-img-top img-fluid" src="/media/{{report.image}}" alt="Card image cap">
+                    <div class="card-body">
+                    <h5 class="card-title">{{report.name}}</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="{{ report.get_absolute_url }}" class="btn btn-primary">view report detail</a>
+                    <a href="{% url 'reports:report-generate' report.pk %}" class="btn btn-primary">generate report</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% endblock %}

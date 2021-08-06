@@ -7,6 +7,14 @@ const reportName=document.getElementById("id_name")
 const reportRemarks=document.getElementById("id_remarks")
 const csrftoken=document.getElementsByName("csrfmiddlewaretoken")[0].value
 const reportForm=document.getElementById("report-form")
+const alertbox=document.getElementById("alert-box")
+console.log(alertbox)
+
+const handlealert =(type, msg)=>{
+    alertbox.innerHTML=`<div class="alert alert-${type}}" role="alert">
+        ${msg}
+  </div>`
+}
 
 
 console.log(reportForm)
@@ -37,8 +45,14 @@ reportbtn.addEventListener('click',()=>{
                 "X-CSRFToken": csrftoken
             },
             data: formData,
-            success: (response)=>(console.log(response)),
-            error: (error)=>(console.log(error)),
+            success: (response)=>{
+                    console.log(response)
+                    handlealert("success", "report created")
+                },
+            error: (error)=>{
+                console.log(error)
+                handlealert("danger", "oops... something went wrong")
+            },
             processData:false,
             contentType:false
         })

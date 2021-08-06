@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block title%}
+Report Details
+{% endblock %}
+
+{%block content %}
+    <div>
+        <div class"w-full">
+            <span class="">Report Name<span> {{report.name}}
+        </div>
+        <div>
+            <h2>Remarks:</h2>{{report.remarks}}
+        </div>
+        <div><img src="/media/{{report.image}}" class="img-fluid" /></div>
+    </div>
+    <a href="{% url 'reports:report-list' %}" class="btn btn-primary">view report list</a>
+
+
+{% endblock %}
