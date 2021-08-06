@@ -8,10 +8,7 @@ colorama==0.4.4
 cycler==0.10.0
 distlib==0.3.2
 Django==3.2.6
-<<<<<<< HEAD
-=======
 django-crispy-forms==1.12.0
->>>>>>> 5f797cf5b3dcc3656ff2b620763f82a7ab511b7e
 filelock==3.0.12
 Flask==2.0.1
 idna==2.10
