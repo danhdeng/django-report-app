@@ -23,7 +23,7 @@ class ReportDetailView(DetailView):
     context_object_name="report"
     
 class UploadTemplateView(TemplateView):
-    template_name="reports/file_upload.html"
+    template_name="reports/from_file.html"
 
 def created_report_view(request):
     print(request.is_ajax)
@@ -93,5 +93,7 @@ def render_pdf_view(request, pk):
     return response
 
 def csv_upload_view(request):
-    template_name="reports/file_upload.html"    
+    print("file is uploading")
+    template_name="reports/file_upload.html"
+    return HttpResponse("file is uploading")   
 

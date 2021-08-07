@@ -1,3 +1,15 @@
-button.not-visible {
+.not-visible {
     display: none;
+}
+
+.dzone {
+    border-style: dashed;
+    border-radius: 5px;
+    border-color: #ddd;
+    transition: .5s
+}
+
+.dzone:hover {
+    background-color: #f5f5f5;
+    
 }

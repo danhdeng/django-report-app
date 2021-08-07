@@ -10,7 +10,7 @@ app_name='reports'
 
 urlpatterns=[
     path('save/',created_report_view, name="create-report"),
-    path('csv_upload/',csv_upload_view, name="csv-upload"),
+    path('upload/',csv_upload_view, name="upload"),
     path('<int:pk>/pdf/',render_pdf_view, name="report-generate"),
     path('',ReportListView.as_view(), name="report-list"),
     path('<int:pk>/',ReportDetailView.as_view(), name="report-detail"),
