@@ -6,16 +6,23 @@ Report Details
 {% endblock %}
 
 {%block content %}
-    <div>
+    {% comment %} <div>
         <div class"w-full">
             <span class="">Report Name<span> {{report.name}}
         </div>
         <div>
             <h2>Remarks:</h2>{{report.remarks}}
         </div>
-        <div><img src="/media/{{report.image}}" class="img-fluid" /></div>
+        <div><img src={{report.image.url}} class="img-fluid" /></div>
     </div>
-    <a href="{% url 'reports:report-list' %}" class="btn btn-primary">view report list</a>
-
-
+    <a href="{% url 'reports:report-list' %}" class="btn btn-primary">view report list</a> {% endcomment %}
+{% if report.image %}
+    <div><img src={{report.image.url}} class="img-fluid" /></div>
+{% endif %}
+    <h3>Remarks:</h3>
+    <p>{{report.remarks}}</p>
+    <hr>
+    <p>author: <b>{{report.auth.user.username}}</b></p>
+    <p>created: <b>{{report.created}}</b></p>
+     <a href="{% url 'reports:report-list' %}" class="btn btn-primary">view report list</a>
 {% endblock %}
