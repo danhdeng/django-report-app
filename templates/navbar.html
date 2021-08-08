@@ -1,13 +1,13 @@
 {% load static %}
 {% url 'sales:sales-home' as path_to_home %}
-{% url 'sales:list' as path_to_sales %}
+{% url 'sales:sale-list' as path_to_sales %}
 {% url 'reports:from-file' as path_to_from_file %}
 {% url 'reports:report-list' as path_to_reports %}
 {% url 'profiles:my-profile' as path_to_my_profile %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href=""><img src="{% static 'logo.png' %}" class="logo-sm"></a>
+    <a class="navbar-brand" href=""><img src="{% static 'logo.png' %}" class="logo-xs"></a>
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">

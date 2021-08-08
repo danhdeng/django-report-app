@@ -25,3 +25,8 @@
     width: 200px;
     border-radius: 50%;
 }
+
+.logo-xs {
+    height: 40px;
+    width: 40px;
+}
