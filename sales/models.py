@@ -19,9 +19,14 @@ class Position(models.Model):
     def __str__(self):
         return f"id: {self.id} product: {self.product.name} quantity: {self.quantity}"
     
-    def get_sale_id(self):
+    def get_sales_id(self):
         sale_obj=self.sale_set.first()
         return sale_obj.id
+    
+    def get_sales_customer(self):
+        sale_obj=self.sale_set.first()
+        return sale_obj.customer.name
+    
 class Sale(models.Model):
     transaction_id=models.CharField(max_length=12, blank=True)
     positions =models.ManyToManyField(Position)
@@ -42,6 +47,7 @@ class Sale(models.Model):
         return super(Sale, self).save(*args, **kwargs)
     
     def get_postions(self):
+        print(self.positions.all())
         return self.positions.all()
 
     def get_absolute_url(self):

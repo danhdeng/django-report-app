@@ -5,6 +5,40 @@ Sale Details
 {% endblock %}
 
 {%block content %}
-    {{sale.pk}}
-    <p>{{sale.transaction_id}}</p>
+    <div class="row">
+        <div class="col-3">
+            <img src="{{sale.customer.logo.url}}" class="img-fluid" alt="{{sale.customer.name}}" />
+        </div>
+        
+        <div class="col-9">
+            <ul>
+                <li>Transaction: <b>{{sale.transaction_id}}</b></li>
+                <li>Total Price: <b>{{sale.total_price}}</b></li>
+                <li>Customer: <b>{{sale.customer.name}}</b></li>
+                <li>Salesman: <b>{{sale.salesman.user.username}}</b></li>
+            </ul>
+            <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Customer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pos in sale.get_postions %}
+                <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{pos.product}}</td>
+                <td>{{pos.quantity}}</td>
+                <td>{{pos.price}}</td>
+                <td>{{pos.get_sales_customer}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    <div>
 {% endblock %}

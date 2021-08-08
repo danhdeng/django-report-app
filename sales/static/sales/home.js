@@ -48,6 +48,7 @@ reportbtn.addEventListener('click',()=>{
             success: (response)=>{
                     console.log(response)
                     handlealert("success", "report created")
+                    reportForm.reset()
                 },
             error: (error)=>{
                 console.log(error)
