@@ -26,7 +26,7 @@ class Sale(models.Model):
     transaction_id=models.CharField(max_length=12, blank=True)
     positions =models.ManyToManyField(Position)
     total_price=models.FloatField(blank=True, null=True)
-    customers =models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer =models.ForeignKey(Customer, on_delete=models.CASCADE)
     salesman=models.ForeignKey(Profile, on_delete=models.CASCADE)
     created =models.DateTimeField(blank=True)
     updated =models.DateTimeField(auto_now_add=True)
@@ -49,8 +49,8 @@ class Sale(models.Model):
     
 
 class CSV(models.Model):
-    file_name= models.FileField(upload_to='csvs')
-    activated=models.BooleanField(default=False)
+    file_name = models.CharField(max_length=120, null=True)
+    csv_file= models.FileField(upload_to='csvs', null=True)
     created =models.DateTimeField(auto_now_add=True)
     updated =models.DateTimeField(auto_now_add=True)
     

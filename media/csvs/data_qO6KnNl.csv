@@ -1,0 +1,9 @@
+Pos;Tranaction id;Product;Quantity;Customer;Date;
+1;E100;TV;1;New Customer;2020-08-04;
+2;E100;Laptop;3;New Customer;2020-08-04;
+3;E200;TV;5;Test Customer;2020-08-05;
+4;E300;Smartphone;7;Test Customer;2020-08-05;
+5;E300;Laptop;9;Test Customer;2020-08-05;
+6;E300;TV;2;CBC;2020-08-06;
+7;E400;TV;4;ABC;2020-08-06;
+8;E500;Smartphone;6;ABC;2020-08-07;

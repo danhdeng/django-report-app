@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{%block title%}
+Sale Details
+{% endblock %}
+
+{%block content %}
+    {% if confirm %}
+        <div class="alert alert-success" role="alert">
+            your profile had been updated.
+        </div>
+    {% endif %}
+
+    <div class="text-center">
+        <img src={{profile.avatar.url}} class="avatar-big" alt="my profile image" />
+    </div>   
+    <br />
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary mt-3">Update</button>
+    </form>
+
+{% endblock %}

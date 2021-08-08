@@ -10,11 +10,11 @@ const reportForm=document.getElementById("report-form")
 const alertbox=document.getElementById("alert-box")
 console.log(alertbox)
 
-const handlealert =(type, msg)=>{
-    alertbox.innerHTML=`<div class="alert alert-${type}}" role="alert">
-        ${msg}
-  </div>`
-}
+// const handlealert =(type, msg)=>{
+//     alertbox.innerHTML=`<div class="alert alert-${type}}" role="alert">
+//         ${msg}
+//   </div>`
+// }
 
 
 console.log(reportForm)

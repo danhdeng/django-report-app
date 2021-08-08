@@ -36,18 +36,15 @@ def get_chart(chart_type, data, result_by, **kwargs):
     plt.switch_backend('AGG')
     fig=plt.figure(figsize=(10,4))
     key=get_result_by(result_by)
-    print(key)
     groupby_data=data.groupby(data[key], as_index=False)['total_price'].agg("sum")
     # groupby_data=data
     if(chart_type=='#1'):
         # plt.bar(data["transaction_id"], data["price"])
         seaborn.barplot(x=key, y="total_price", data=groupby_data)
-        print("Bar Chart")
     elif(chart_type=='#2'):
         labels=kwargs.get("labels")
         plt.pie(data=groupby_data, x="total_price", labels=groupby_data[key].values)
     elif(chart_type=='#3'):
-        print("Line Chart")
         plt.plot(groupby_data[key], groupby_data["total_price"], linestyle="dashed", color='red', marker='o')
     else:
         print("Unable to identify the chart")

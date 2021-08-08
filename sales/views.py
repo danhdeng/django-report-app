@@ -2,6 +2,8 @@ import pandas as pd
 
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Sale
 from .forms import SearchSaleForm
 from reports.forms import ReportForm
@@ -9,7 +11,7 @@ from reports.forms import ReportForm
 from .utils import get_customer_name_by_id, get_saleman_name_by_id, get_chart
 
 # Create your views here.
-
+@login_required
 def home_view(request):
     search_form=SearchSaleForm(request.POST or None)
     report_form=ReportForm
@@ -25,15 +27,13 @@ def home_view(request):
         chart_type=request.POST.get('chart_type')
         result_by=request.POST.get('result_by')
         sale_queryset=Sale.objects.filter(created__date__lte=date_to, created__date__gte=date_from)
-        # print(queryset.values())
-        # print(queryset.values_list())
         if len(sale_queryset) >0:
             sales_df = pd.DataFrame(sale_queryset.values())
-            sales_df["customers_id"]=sales_df["customers_id"].apply(get_customer_name_by_id)
+            sales_df["customer_id"]=sales_df["customer_id"].apply(get_customer_name_by_id)
             sales_df["salesman_id"]=sales_df["salesman_id"].apply(get_saleman_name_by_id)
             sales_df["created"]=sales_df["created"].apply(lambda x: x.strftime('%y-%m-%d'))
             sales_df["updated"]=sales_df["updated"].apply(lambda x: x.strftime('%y-%m-%d'))
-            sales_df.rename({"customers_id":"customer", "salesman_id": "sales person", "id":"sale_id"}, axis=1, inplace=True)
+            sales_df.rename({"customer_id":"customer", "salesman_id": "sales person", "id":"sale_id"}, axis=1, inplace=True)
             
             positions_data=[]
             for sale in sale_queryset:
@@ -58,8 +58,6 @@ def home_view(request):
 
         else:
             no_data="No data is avaiable in this date range"
-        # pf2= pd.DataFrame(queryset.values_list())
-        # print(pf2)
 
     context={
         "search_form":search_form,
@@ -74,7 +72,8 @@ def home_view(request):
     }
     return render(request,'sales/home.html',context)
 
-class SaleListView(ListView):
+
+class SaleListView(LoginRequiredMixin,ListView):
     
     model = Sale
     context_object_name = 'salelist'
@@ -83,7 +82,7 @@ class SaleListView(ListView):
     # def get_queryset(self):
     #      return Sale.objects.all()
 
-class SaleDetailsView(DetailView):
+class SaleDetailsView(LoginRequiredMixin,DetailView):
     model= Sale
     context_object_name='sale'
     template_name='sales/sale_details.html'
